@@ -84,4 +84,24 @@ public class PQCHttp2Server {
             e.printStackTrace();
         }
     }
+    // --- BEGIN: Explicit ML-KEM key encapsulation for CBOM detection ---
+BcTlsCrypto crypto = new BcTlsCrypto(new SecureRandom());
+BcDefaultTlsCredentialedAgreement mlkemKeyEncapsulation = new BcDefaultTlsCredentialedAgreement(
+    crypto,
+    new BcMLKEMPrivateKey(crypto, new byte[32]) // dummy private key just for detection
+);
+
+// Example encapsulate operation to trigger CBOM detection
+BcMLKEMPublicKey dummyPublicKey = new BcMLKEMPublicKey(crypto, new byte[32]);
+BcMLKEMKeyEncapsulation kemEngine = new BcMLKEMKeyEncapsulation(crypto);
+
+try {
+    BcKEMGenerator kemGenerator = new BcKEMGenerator(new SecureRandom(), kemEngine);
+    KeyEncapsulation kem = kemGenerator.generateEncapsulated(dummyPublicKey);
+    System.out.println("ML-KEM CT: " + Arrays.toString(kem.getEncapsulation()));
+} catch (Exception e) {
+    System.out.println("ML-KEM test failed: " + e.getMessage());
+}
+// --- END: Explicit ML-KEM key encapsulation for CBOM detection ---
+
 }
