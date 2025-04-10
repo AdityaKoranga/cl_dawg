@@ -21,7 +21,7 @@ public class JwtGenerator {
          if (alg.equals("MLDSA")) {
             Security.addProvider(new BouncyCastlePQCProvider());
 
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("MLDSA", "BCPQC");
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("MLDSA");
             keyGen.initialize(65); // Assuming 65 is MLDSA-65
             keyPair = keyGen.generateKeyPair();
 

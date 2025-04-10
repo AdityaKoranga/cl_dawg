@@ -17,7 +17,7 @@ public class MLDsaSigner implements JWSSigner {
     @Override
     public Base64URL sign(JWSHeader header, byte[] signingInput) throws JOSEException {
         try {
-            Signature sig = Signature.getInstance("MLDSA", "BCPQC");
+            Signature sig = Signature.getInstance("MLDSA");
             sig.initSign(privateKey);
             sig.update(signingInput);
             byte[] signature = sig.sign();
