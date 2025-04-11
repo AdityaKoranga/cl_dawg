@@ -44,7 +44,7 @@ public class SigningMethodCircl {
         if (!(key instanceof ML-DSAPublicKey)) {
             throw new IllegalArgumentException("invalid public key type");
         }
-
+        PrivateKey key = kf.generatePrivate(spec);
         Signature signature = Signature.getInstance(algorithm, "ML-DSA", "BC");
         signature.initVerify((PublicKey) key);
         signature.update(signingString.getBytes());

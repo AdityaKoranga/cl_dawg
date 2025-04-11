@@ -19,6 +19,7 @@ public class ML-DSASigner implements JWSSigner {
         try {
             Signature sig = Signature.getInstance("ML-DSA", "BC");
             KeyFactory kf = KeyFactory.getInstance("ML-DSA", "BC");
+            PrivateKey key = kf.generatePrivate(spec);
             sig.initSign(privateKey);
             sig.update(signingInput);
             byte[] signature = sig.sign();
