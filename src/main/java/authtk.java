@@ -1,7 +1,7 @@
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.*;
 import com.nimbusds.jwt.*;
-import org.bouncycastle.pqc.jcajce.interfaces.MLDSAPrivateKey;
+import org.bouncycastle.pqc.jcajce.interfaces.ML-DSAPrivateKey;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 
 import java.security.*;
@@ -12,21 +12,21 @@ import java.util.Date;
 public class JwtGenerator {
 
     public static void main(String[] args) throws Exception {
-        String alg = "MLDSA"; // Options: "P256", "MLDSA"
+        String alg = "ML-DSA"; // Options: "P256", "ML-DSA"
 
         JWSSigner signer;
         JWSAlgorithm jwsAlg;
         KeyPair keyPair;
 
-         if (alg.equals("MLDSA")) {
+         if (alg.equals("ML-DSA")) {
             Security.addProvider(new BouncyCastlePQCProvider());
 
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("MLDSA");
-            keyGen.initialize(65); // Assuming 65 is MLDSA-65
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ML-DSA");
+            keyGen.initialize(65); // Assuming 65 is ML-DSA-65
             keyPair = keyGen.generateKeyPair();
 
-            jwsAlg = new JWSAlgorithm("MLDSA-65");
-            signer = new MLDsaSigner((MLDSAPrivateKey) keyPair.getPrivate());
+            jwsAlg = new JWSAlgorithm("ML-DSA-65");
+            signer = new ML-DSASigner((ML-DSAPrivateKey) keyPair.getPrivate());
 
         } else {
             throw new IllegalArgumentException("Unknown algorithm: " + alg);

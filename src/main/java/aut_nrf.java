@@ -1,7 +1,7 @@
 package jwt;
 
-import org.bouncycastle.pqc.jcajce.interfaces.MLDSAPrivateKey;
-import org.bouncycastle.pqc.jcajce.interfaces.MLDSAPublicKey;
+import org.bouncycastle.pqc.jcajce.interfaces.ML-DSAPrivateKey;
+import org.bouncycastle.pqc.jcajce.interfaces.ML-DSAPublicKey;
 import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -12,7 +12,7 @@ import java.security.PublicKey;
 
 public class SigningMethodCircl {
 
-    private String algorithm = "Ed448-MLDSA87";
+    private String algorithm = "Ed448-ML-DSA87";
 
     static {
         Security.addProvider(new BouncyCastlePQCProvider());
@@ -30,22 +30,22 @@ public class SigningMethodCircl {
     }
 
     public byte[] sign(String signingString, Object key) throws Exception {
-        if (!(key instanceof MLDSAPrivateKey)) {
+        if (!(key instanceof ML-DSAPrivateKey)) {
             throw new IllegalArgumentException("invalid private key type");
         }
 
-        Signature signature = Signature.getInstance(algorithm, "MLDSA");
+        Signature signature = Signature.getInstance(algorithm, "ML-DSA");
         signature.initSign((PrivateKey) key);
         signature.update(signingString.getBytes());
         return signature.sign();
     }
 
     public void verify(String signingString, byte[] sig, Object key) throws Exception {
-        if (!(key instanceof MLDSAPublicKey)) {
+        if (!(key instanceof ML-DSAPublicKey)) {
             throw new IllegalArgumentException("invalid public key type");
         }
 
-        Signature signature = Signature.getInstance(algorithm, "MLDSA");
+        Signature signature = Signature.getInstance(algorithm, "ML-DSA");
         signature.initVerify((PublicKey) key);
         signature.update(signingString.getBytes());
 
@@ -55,7 +55,7 @@ public class SigningMethodCircl {
     }
 
     public void setScheme(String schemeName) {
-        if (!schemeName.equals("Ed448-MLDSA87")) {
+        if (!schemeName.equals("Ed448-ML-DSA87")) {
             throw new IllegalArgumentException("unsupported signing scheme");
         }
         this.algorithm = schemeName;

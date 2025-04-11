@@ -24,8 +24,8 @@ import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.openssl.PEMParser;
 
-import pqcrypto.mldsa.MLDSAScheme;
-import pqcrypto.mldsa.MLDSASchemeFactory;
+import pqcrypto.ML-DSA.ML-DSAScheme;
+import pqcrypto.ML-DSA.ML-DSASchemeFactory;
 
 public class KeyParser {
 
@@ -44,7 +44,7 @@ public class KeyParser {
             AlgorithmIdentifier algo = privInfo.getPrivateKeyAlgorithm();
             ASN1ObjectIdentifier oid = algo.getAlgorithm();
 
-            MLDSAScheme scheme = MLDSASchemeFactory.getByOid(oid.getId());
+            ML-DSAScheme scheme = ML-DSASchemeFactory.getByOid(oid.getId());
             if (scheme == null) {
                 throw new IllegalArgumentException("Unknown algorithm: " + oid);
             }
@@ -66,7 +66,7 @@ public class KeyParser {
                 throw new IllegalArgumentException("Pass scheme name");
             }
 
-            MLDSAScheme scheme = MLDSASchemeFactory.getByName(schemeName);
+            ML-DSAScheme scheme = ML-DSASchemeFactory.getByName(schemeName);
             if (scheme == null) {
                 throw new IllegalArgumentException("Unknown scheme name: " + schemeName);
             }
@@ -81,7 +81,7 @@ public class KeyParser {
                 return cert.getPublicKey();
             } catch (Exception ignored) {}
 
-            throw new IllegalArgumentException("Failed to parse MLDSA public key");
+            throw new IllegalArgumentException("Failed to parse ML-DSA public key");
         }
     }
 }

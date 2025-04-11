@@ -9,7 +9,7 @@ import com.coranlabs.coran_nrf.application_entity.logger.Logger;
 import com.coranlabs.coran_nrf.application_entity.util.Util;
 import com.coranlabs.coran_nrf.messages_handling_entity.context.NrfContext;
 import com.lakshya_chopra.jwt.*;
-import com.lakshya_chopra.jwt.pq.Ed448MLDSA87;
+import com.lakshya_chopra.jwt.pq.Ed448ML-DSA87;
 import com.mongodb.client.model.Filters;
 import org.bson.conversions.Bson;
 
@@ -69,7 +69,7 @@ public class Processor {
         claims.setExp(nowNum + expiration);
         claims.setIssuedAt(new NumericDate(now));
 
-        Jwt token = new Jwt(new Ed448MLDSA87(), claims);
+        Jwt token = new Jwt(new Ed448ML-DSA87(), claims);
         String accessToken;
         try {
             accessToken = token.sign(nrfCtx.getNrfPrivKey());
@@ -78,7 +78,7 @@ public class Processor {
             return new Object[]{null, new AccessTokenErr("invalid_request")};
         }
 
-        Logger.accTokenLog.info("Signed the access token with Ed448-MLDSA87");
+        Logger.accTokenLog.info("Signed the access token with Ed448-ML-DSA87");
 
         AccessTokenRsp response = new AccessTokenRsp();
         response.setAccessToken(accessToken);
