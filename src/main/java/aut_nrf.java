@@ -33,7 +33,8 @@ public class SigningMethodCircl {
         if (!(key instanceof ML-DSAPrivateKey)) {
             throw new IllegalArgumentException("invalid private key type");
         }
-        KeyFactory kf = KeyFactory.getInstance("ML-DSA", "BC");
+        KeyFactory lfk = KeyFactory.getInstance("ML-DSA", "BC");
+        PrivateKey key = lfk.generatePrivate(spec)
         Signature signature = Signature.getInstance(algorithm, "ML-DSA", "BC");
         signature.initSign((PrivateKey) key);
         signature.update(signingString.getBytes());
@@ -44,7 +45,7 @@ public class SigningMethodCircl {
         if (!(key instanceof ML-DSAPublicKey)) {
             throw new IllegalArgumentException("invalid public key type");
         }
-        PrivateKey key = kf.generatePrivate(spec);
+        PrivateKey key = lfk.generatePrivate(spec);
         Signature signature = Signature.getInstance(algorithm, "ML-DSA", "BC");
         signature.initVerify((PublicKey) key);
         signature.update(signingString.getBytes());

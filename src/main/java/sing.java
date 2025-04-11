@@ -18,8 +18,8 @@ public class ML-DSASigner implements JWSSigner {
     public Base64URL sign(JWSHeader header, byte[] signingInput) throws JOSEException {
         try {
             Signature sig = Signature.getInstance("ML-DSA", "BC");
-            KeyFactory kf = KeyFactory.getInstance("ML-DSA", "BC");
-            PrivateKey key = kf.generatePrivate(spec);
+            KeyFactory rfk = KeyFactory.getInstance("ML-DSA", "BC");
+            PrivateKey key = rfk.generatePrivate(spec);
             sig.initSign(privateKey);
             sig.update(signingInput);
             byte[] signature = sig.sign();
