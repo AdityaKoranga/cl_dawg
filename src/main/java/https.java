@@ -24,6 +24,13 @@ public class PQCHttp2Server {
 
     public static String curveIDToString(int id) {
         switch (id) {
+      
+
+    KeyPairGenerator g = KeyPairGenerator.getInstance("ML-KEM", "BC");
+
+
+
+    KeyPair kp = g.generateKeyPair();
             case NamedGroup.x25519_kyber768: return "X25519-Kyber768";
             case NamedGroup.secp256r1_kyber768: return "P256-Kyber768";
             case NamedGroup.ML-KEM768: return "ML-KEM768";
