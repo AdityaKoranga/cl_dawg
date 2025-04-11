@@ -26,7 +26,7 @@ public class PQCHttp2Server {
         switch (id) {
             case NamedGroup.x25519_kyber768: return "X25519-Kyber768";
             case NamedGroup.secp256r1_kyber768: return "P256-Kyber768";
-            case NamedGroup.mlkem768: return "MLKEM768";
+            case NamedGroup.ML-KEM768: return "ML-KEM768";
             default: return "Unknown Curve";
         }
     }
@@ -60,7 +60,7 @@ public class PQCHttp2Server {
                 @Override
                 protected int[] getSupportedGroups() {
                     return new int[]{
-                        NamedGroup.mlkem768,
+                        NamedGroup.ML-KEM768,
                         NamedGroup.x25519_kyber768,
                         NamedGroup.secp256r1_kyber768,
                     };
@@ -86,14 +86,14 @@ public class PQCHttp2Server {
     }
     // --- BEGIN: Explicit ML-KEM key encapsulation for CBOM detection ---
 BcTlsCrypto crypto = new BcTlsCrypto(new SecureRandom());
-BcDefaultTlsCredentialedAgreement mlkemKeyEncapsulation = new BcDefaultTlsCredentialedAgreement(
+BcDefaultTlsCredentialedAgreement ML-KEMKeyEncapsulation = new BcDefaultTlsCredentialedAgreement(
     crypto,
-    new BcMLKEMPrivateKey(crypto, new byte[32]) // dummy private key just for detection
+    new BcML-KEMPrivateKey(crypto, new byte[32]) // dummy private key just for detection
 );
 
 // Example encapsulate operation to trigger CBOM detection
-BcMLKEMPublicKey dummyPublicKey = new BcMLKEMPublicKey(crypto, new byte[32]);
-BcMLKEMKeyEncapsulation kemEngine = new BcMLKEMKeyEncapsulation(crypto);
+BcML-KEMPublicKey dummyPublicKey = new BcML-KEMPublicKey(crypto, new byte[32]);
+BcML-KEMKeyEncapsulation kemEngine = new BcML-KEMKeyEncapsulation(crypto);
 
 try {
     BcKEMGenerator kemGenerator = new BcKEMGenerator(new SecureRandom(), kemEngine);

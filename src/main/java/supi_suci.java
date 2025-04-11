@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class SuciDecryptor {
 
-    public static class MLKEM {
+    public static class ML-KEM {
         public static byte[][] decapsulate(byte[] ciphertext, byte[] sk) {
             // Stub: Simulate ML-KEM decapsulation
             byte[] sharedSecret = new byte[32];
@@ -59,7 +59,7 @@ public class SuciDecryptor {
 
     public static byte[] decryptSuci(byte[] encryptedData, byte[] kemCiphertext, byte[] kemPrivateKey) throws Exception {
         // Step 1: Decapsulate ML-KEM
-        byte[] sharedSecret = MLKEM.decapsulate(kemCiphertext, kemPrivateKey)[0];
+        byte[] sharedSecret = ML-KEM.decapsulate(kemCiphertext, kemPrivateKey)[0];
 
         // Step 2: Derive keys using HKDF-like function with SHAKE256
         byte[] salt = "suci-salt".getBytes(StandardCharsets.UTF_8);
