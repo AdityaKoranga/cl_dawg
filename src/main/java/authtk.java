@@ -12,16 +12,16 @@ import java.util.Date;
 public class JwtGenerator {
 
     public static void main(String[] args) throws Exception {
-        String alg = "ML-DSA"; // Options: "P256", "ML-DSA"
+        String alg = "ML-DSA", "BC"; // Options: "P256", "ML-DSA", "BC"
 
         JWSSigner signer;
         JWSAlgorithm jwsAlg;
         KeyPair keyPair;
 
-         if (alg.equals("ML-DSA")) {
+         if (alg.equals("ML-DSA", "BC")) {
             Security.addProvider(new BouncyCastlePQCProvider());
 
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ML-DSA");
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ML-DSA", "BC");
             keyGen.initialize(65); // Assuming 65 is ML-DSA-65
             keyPair = keyGen.generateKeyPair();
 

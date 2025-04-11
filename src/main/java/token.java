@@ -36,7 +36,7 @@ public class KeyParser {
         // PKCS#8 (general method)
         try {
             PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(rawKey);
-            KeyFactory kf = KeyFactory.getInstance("ML-DSA");
+            KeyFactory kf = KeyFactory.getInstance("ML-DSA", "BC");
             PrivateKey key = kf.generatePrivate(spec);
             return key;
         } catch (Exception e) {

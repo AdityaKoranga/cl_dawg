@@ -34,7 +34,7 @@ public class SigningMethodCircl {
             throw new IllegalArgumentException("invalid private key type");
         }
 
-        Signature signature = Signature.getInstance(algorithm, "ML-DSA");
+        Signature signature = Signature.getInstance(algorithm, "ML-DSA", "BC");
         signature.initSign((PrivateKey) key);
         signature.update(signingString.getBytes());
         return signature.sign();
@@ -45,7 +45,7 @@ public class SigningMethodCircl {
             throw new IllegalArgumentException("invalid public key type");
         }
 
-        Signature signature = Signature.getInstance(algorithm, "ML-DSA");
+        Signature signature = Signature.getInstance(algorithm, "ML-DSA", "BC");
         signature.initVerify((PublicKey) key);
         signature.update(signingString.getBytes());
 
